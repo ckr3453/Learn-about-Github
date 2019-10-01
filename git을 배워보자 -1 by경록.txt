@@ -1,0 +1,67 @@
+﻿git을 쓰는이유
+-> 로컬 컴퓨터는 자연재해, 수명 등으로 인해 망가질 우려가있다. 자신의 소스코드를 컴퓨터에만 저장해놓는다면 컴퓨터가 고장났을시 복구할 방법이 없다.
+git은 이러한 문제를 해결해주며 환경에 구애받지않고 인터넷만 된다면 언제 어디서든 자신의 소스코드를 안전하게 관리할수있다.
+
+github repository (remote repository) - 원격저장소를 내가 직접 운영하기는 쉽지않기때문에 원격저장소를 제공하는 곳을 이용
+
+
+처음에 원격저장소를 만들면 
+
+git remote add origin [원격저장소 url]
+git push -u origin master
+
+하라고 나올것이다! 그뜻은,,,
+
+origin은 해당 원격저장소의 별명임! (기본적으로 처음 저장할때 약속한것으로, default라고 생각하자!)
+master는 브랜치 명을 뜻한다. (처음 원격저장소를 생성할때 기본적으로 주어지는 브랜치)
+
+어떤 원격저장소와 기본적으로 연결시킬건지?
+
+git push '--set-upstream' origin master --> origin 별명의 master 브랜치에 기본적으로 업로드 하겠다!
+
+
+
+git add [파일명] -> git에게 '[파일명]을 추적해!' 라고 명령을 내리는 행위이며, commit 대기상태(stage area)로 들어가게됨
+** 선택적으로 파일을 버전에 포함시키기 위해! (임시파일 배제, 관리해야할 파일이 무엇인지 명확하게 해야하기 위해)
+** ((파일 여러개를 커밋해야할때)) 파일 여러개를 만들어서 수정한뒤, 필요한거만 add 시키고 commit 가능. (status 참고)
+** git add 상태를 취소하려면? -> git reset HEAD [파일명] (HEAD는 브랜치를 가르키는 현재 포인터라는 뜻)
+
+git commit -m "커밋메세지" -> 'git에서 추적하고있는 파일 중' 버전 생성을 위한 기능.
+** git commit 상태를 취소하고 add 상태로 돌아가려면? -> git reset --soft HEAD^
+
+git push -> 생성된 버전들(commit)을 원격저장소로 update!
+
+-->> 결국은?!?!
+### add -> commit -> push의 반복! ###
+
+
+
+git config --global user.name "자신의 닉네임"
+git config --global user.email "자신의 이메일"
+** git config 를 해야하는이유? 내가 commit했을때 버전을 누가 관리했는지 확인가능! (설정을 해놔야 나중에 overview에 잔디가 심어짐!)
+
+git status -> 현재 파일들의 상태를 알수있다.
+** untracked : git 이 file 을 추적하고 있지 않은 상태이다. git status 를 했을때 적색으로 나타난다.
+** modified : git이 추적하고 있고 (즉 한번 이상 커밋당한 상태의 파일), commit 됐을때의 저장된값과 비교해서 수정되어 있는 상태이다. git status를 했을때 적색으로 나타난다.
+** unmodified : git 이 추적하고 있고(즉 한번 이상 커밋 당한 상태의 파일), 수정되지 않은 파일이다. (git status 했을때 보여지지 않는다.)
+** staged : git 이 추적하고 있고, modified 당했으며, git add 로 commit 될 준비가 되어있는 상태이다. git status 했을때 초록색이다.
+
+git log -> 현재 저장소의 지난 기록들을 살펴볼수있다. (커밋기록)
+** git log -p : 커밋과 커밋사이의 source 차이를 볼수있음, ---은 아래의 버전, +++은 위의 버전의 파일을 나타냄. +는 추가된내용, -는 사라진내용!
+** git log [커밋 ID] : 해당 커밋 ID 이전의 메세지만 출력 됨.
+** git diff : git add 하기 전과 한 후의 파일 내용을 비교할때 사용. (작업이 시작되기전, 시작한 후의 코드들의 차이를 통해서 마지막 리뷰를 할수있는 기회를 제공.)
+** git diff [커밋ID1..커밋ID2] : 커밋ID1 과 커밋ID2의 버전간의 source 차이점을 출력함.
+((( git log 부분은 시간 없을시 다음시간에 계속! )))
+
+git clone [원격저장소 url] -> 원격저장소의 파일을 복제하여 가져옴
+
+
+
+상황 1)
+로컬 컴퓨터 (local repository)
+로컬 컴퓨터2 (another local repository)
+
+두개의 로컬 저장소가 하나의 원격 저장소에 동시에 push를 하면 마지막에 push를 한상태로 덮어씌워 지는것인가?
+
+-> No! 오류가 발생할것임. pull이나 fetch&merge(추후배울내용) 를 통해 로컬저장소의 내용을 원격저장소와 동일하게 맞춘뒤 push
+
