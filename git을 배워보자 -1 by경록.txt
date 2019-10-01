@@ -8,16 +8,16 @@ github repository (remote repository) - 원격저장소를 내가 직접 운영�
 처음에 원격저장소를 만들면 
 
 git remote add origin [원격저장소 url]
-git push -u origin master
+git push -u origin master (= git push '--set-upstream' origin master) 둘이 같은 의미임.
+
 
 하라고 나올것이다! 그뜻은,,,
 
 origin은 해당 원격저장소의 별명임! (기본적으로 처음 저장할때 약속한것으로, default라고 생각하자!)
-master는 브랜치 명을 뜻한다. (처음 원격저장소를 생성할때 기본적으로 주어지는 브랜치)
+master는 브랜치 명을 뜻한다. (master는 처음 원격저장소를 생성할때 기본적으로 주어지는 브랜치)
 
 어떤 원격저장소와 기본적으로 연결시킬건지?
 
-git push '--set-upstream' origin master --> origin 별명의 master 브랜치에 기본적으로 업로드 하겠다!
 
 
 
