@@ -8,7 +8,7 @@ github repository (remote repository) - 원격저장소를 내가 직접 운영�
 처음에 원격저장소를 만들면 
 
 git remote add origin [원격저장소 url]
-git push -u origin master (= git push '--set-upstream' origin master) 둘이 같은 의미임.
+git push origin master
 
 
 하라고 나올것이다! 그뜻은,,,
