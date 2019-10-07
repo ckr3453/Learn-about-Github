@@ -1,4 +1,4 @@
 func b(){}
-func a(event){}
+func a(event,two){}
 func c(){}
 adadad
